@@ -4,15 +4,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 using System;
-using System.Threading.Tasks;
 using API.DTO.Config;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Model.Authorization;
-using Model.Network;
 using Model.Options;
 
 namespace API.Controllers
@@ -77,13 +72,7 @@ namespace API.Controllers
                     {
                         Enabled = clientOptions.PatientList.Enabled
                     },
-                    Help = new ClientOptionsDTO.HelpOptionsDTO
-                    {
-                        Enabled = clientOptions.Help.Enabled,
-                        AutoSend = clientOptions.Help.AutoSend,
-                        Email = clientOptions.Help.Email,
-                        URI = clientOptions.Help.URI
-                    }
+                    Help = ClientOptionsDTO.HelpOptionsDTO.From(clientOptions.Help)
                 },
                 Version = versionOptions.Version.ToString()
             };

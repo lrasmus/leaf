@@ -32,8 +32,54 @@ namespace API.Options
             {
                 public const string Section = @"Client:Help";
                 public const string Enabled = @"Client:Help:Enabled";
-                public const string Email = @"Client:Help:Email";
-                public const string URI = @"Client:Help:URI";
+
+                public static class AskQuestion
+                {
+                    public const string Enabled = @"Client:Help:AskQuestion:Enabled";
+                    public const string LinkText = @"Client:Help:AskQuestion:LinkText";
+                }
+                public static class DirectEmail
+                {
+                    public const string Enabled = @"Client:Help:DirectEmail:Enabled";
+                    public const string Address = @"Client:Help:DirectEmail:Address";
+                    public const string LinkText = @"Client:Help:DirectEmail:LinkText";
+                }
+                public static class Website
+                {
+                    public const string Enabled = @"Client:Help:Website:Enabled";
+                    public const string URI = @"Client:Help:Website:URI";
+                    public const string LinkText = @"Client:Help:Website:LinkText";
+                }
+                public static class Consult
+                {
+                    public const string Section = @"Client:Help:Consult";
+                    public const string Enabled = @"Client:Help:Consult:Enabled";
+
+                    public static class Webhook
+                    {
+                        public const string Section = @"Client:Help:Consult:Webhook";
+                        public const string Enabled = @"Client:Help:Consult:Webhook:Enabled";
+                        public const string URI = @"Client:Help:Consult:Webhook:URI";
+                    }
+                    public static class Email
+                    {
+                        public const string Section = @"Client:Help:Consult:Email";
+                        public const string Enabled = @"Client:Help:Consult:Email:Enabled";
+                    }
+                    public static class FormContent
+                    {
+                        public const string Section = @"Client:Help:Consult:FormContent";
+                        public const string Title = @"Client:Help:Consult:FormContent:Title";
+                        public const string Body = @"Client:Help:Consult:FormContent:Body";
+
+                        public static class Record
+                        {
+                            public const string Name = @"Name";
+                            public const string Type = @"Type";
+                            public const string Options = @"Options";
+                        }
+                    }
+                }
             }
         }
     }

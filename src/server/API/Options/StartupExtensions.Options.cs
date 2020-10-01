@@ -8,6 +8,7 @@
 #endif
 
 using System;
+using System.Linq;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics;
@@ -247,9 +248,51 @@ namespace API.Options
 
                 // Help
                 opts.Help.Enabled = config.GetValue<bool>(Config.Client.Help.Enabled);
-                opts.Help.AutoSend = config.GetValue<bool>(Config.Notification.Enabled);
-                opts.Help.Email = config.GetValue<string>(Config.Client.Help.Email);
-                opts.Help.URI = config.GetValue<string>(Config.Client.Help.URI);
+                if (opts.Help.Enabled)
+                {
+                    opts.Help.AskQuestion.Enabled = config.GetValue<bool>(Config.Client.Help.AskQuestion.Enabled);
+                    if (opts.Help.AskQuestion.Enabled)
+                    {
+                        opts.Help.AskQuestion.LinkText = config.GetValue<string>(Config.Client.Help.AskQuestion.LinkText);
+                    }
+                    opts.Help.DirectEmail.Enabled = config.GetValue<bool>(Config.Client.Help.DirectEmail.Enabled);
+                    if (opts.Help.DirectEmail.Enabled)
+                    {
+                        opts.Help.DirectEmail.LinkText = config.GetValue<string>(Config.Client.Help.DirectEmail.LinkText);
+                        opts.Help.DirectEmail.Address = config.GetValue<string>(Config.Client.Help.DirectEmail.Address);
+                    }
+                    opts.Help.Website.Enabled = config.GetValue<bool>(Config.Client.Help.Website.Enabled);
+                    if (opts.Help.Website.Enabled)
+                    {
+                        opts.Help.Website.LinkText = config.GetValue<string>(Config.Client.Help.Website.LinkText);
+                        opts.Help.Website.URI = config.GetValue<string>(Config.Client.Help.Website.URI);
+                    }
+                    opts.Help.Consult.Enabled = config.GetValue<bool>(Config.Client.Help.Consult.Enabled);
+                    if (opts.Help.Consult.Enabled)
+                    {
+                        opts.Help.Consult.Email.Enabled = config.GetValue<bool>(Config.Client.Help.Consult.Email.Enabled);
+                        opts.Help.Consult.WebHook.Enabled = config.GetValue<bool>(Config.Client.Help.Consult.Webhook.Enabled);
+                        if (opts.Help.Consult.WebHook.Enabled)
+                        {
+                            opts.Help.Consult.WebHook.URI = config.GetValue<string>(Config.Client.Help.Consult.Webhook.URI);
+                        }
+                        opts.Help.Consult.FormContent.Title = config.GetValue<string>(Config.Client.Help.Consult.FormContent.Title);
+                        opts.Help.Consult.FormContent.Body = config.GetSection(Config.Client.Help.Consult.FormContent.Body)
+                            .Get<ClientOptions.HelpOptions.ConsultOptions.FormContentOptions.RecordOptions[]>();
+                    }
+
+                    var sp = services.BuildServiceProvider();
+                    var notificationOpts = sp.GetService<IOptions<NotificationOptions>>().Value;
+
+                    if (opts.Help.AskQuestion.Enabled && !notificationOpts.Enabled)
+                    {
+                        throw new LeafConfigurationException("Help.AskQuestion is enabled but Notifications.Email is disabled!");
+                    }
+                    if (opts.Help.Consult.Enabled && opts.Help.Consult.Email.Enabled && !notificationOpts.Enabled)
+                    {
+                        throw new LeafConfigurationException("Help.Consult.Email is enabled but Notifications.Email is disabled!");
+                    }
+                }
             });
 
             return services;

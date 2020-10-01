@@ -62,6 +62,29 @@ interface HelpOptions {
     autoSend: boolean;
     email?: string;
     uri?: string;
+    consult: ConsultOptions;
+}
+
+interface ConsultOptions {
+    enabled: boolean;
+    webHook: WebHookOptions;
+    formContent: FormContentOptions;
+}
+
+interface WebHookOptions {
+    enabled: true,
+    uri: string
+}
+
+interface FormContentOptions {
+    title: string;
+    body: FormContentRecord[];
+}
+
+interface FormContentRecord {
+    name: string;
+    options?: string[];
+    type: 'TEXT' | 'DROPDOWN';
 }
 
 export interface IdTokenDTO {
