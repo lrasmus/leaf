@@ -17,7 +17,7 @@ import CohortCountBox from '../containers/CohortCountBox/CohortCountBox';
 import Header from '../containers/Header/Header';
 import { AppState, AuthorizationState } from '../models/state/AppState';
 import ExportState from '../models/state/Export';
-import { Routes, ConfirmationModalState, InformationModalState, NoClickModalState, Browser, BrowserType, SideNotificationState, UserInquiryState } from '../models/state/GeneralUiState';
+import { Routes, ConfirmationModalState, InformationModalState, NoClickModalState, Browser, BrowserType, SideNotificationState, HelpState } from '../models/state/GeneralUiState';
 import { SessionContext, SessionState } from '../models/Session';
 import MyLeafModal from './MyLeafModal/MyLeafModal';
 import SaveQueryPanel from './SaveQueryPanel/SaveQueryPanel';
@@ -50,13 +50,13 @@ interface StateProps {
     currentAdminPane: AdminPanelPane;
     currentRoute: Routes;
     exportState: ExportState;
+    help: HelpState;
     informationModal: InformationModalState;
     noclickModal: NoClickModalState;
     queries: SavedQueryMap;
     routes: RouteConfig[];
     session: SessionState;
     sideNotification: SideNotificationState;
-    userQuestion: UserInquiryState;
 }
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -90,7 +90,7 @@ class App extends React.Component<Props> {
     public render() {
         const { 
             auth, browser, cohortCountState, currentRoute, currentAdminPane, confirmationModal, queries,
-            informationModal, dispatch, noclickModal, routes, sideNotification, session, userQuestion
+            informationModal, dispatch, noclickModal, routes, sideNotification, session, help
         } = this.props;
         const content = routes.length 
             ? routes.find((r: RouteConfig) => r.index === currentRoute)!.render()
@@ -108,8 +108,8 @@ class App extends React.Component<Props> {
                 <CohortCountBox />
                 <Header />
                 <Sidebar currentRoute={currentRoute} dispatch={dispatch} routes={routes} cohortCountState={cohortCountState} currentAdminPane={currentAdminPane} />
-                <HelpButton auth={auth} dispatch={dispatch} />
-                <UserQuestionModal dispatch={dispatch} state={userQuestion} queries={queries} />
+                <HelpButton auth={auth} dispatch={dispatch} help={help} />
+                <UserQuestionModal auth={auth} dispatch={dispatch} queries={queries} help={help} />
                 <SideNotification dispatch={dispatch} state={sideNotification} />
                 {session.context &&
                 <div id="main-content">
@@ -191,13 +191,13 @@ const mapStateToProps = (state: AppState) => {
         currentAdminPane: state.admin ? state.admin!.activePane : 0, 
         currentRoute: state.generalUi.currentRoute,
         exportState: state.dataExport,
+        help: state.generalUi.help,
         informationModal: state.generalUi.informationModal,
         noclickModal: state.generalUi.noclickModal,
         queries: state.queries.saved,
         routes: state.generalUi.routes,
         session: state.session,
-        sideNotification: state.generalUi.sideNotification,
-        userQuestion: state.generalUi.userQuestion
+        sideNotification: state.generalUi.sideNotification
     };
 };
 

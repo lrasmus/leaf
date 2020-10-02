@@ -6,16 +6,19 @@
  */ 
 
 import React from 'react';
-import { UserInquiryState } from '../../models/state/GeneralUiState';
+import { HelpMethod, HelpState } from '../../models/state/GeneralUiState';
 import { Modal } from 'reactstrap';
 import { SavedQueryMap } from '../../models/Query';
-import AskQuestion from './AskQuestion';
+import AskQuestionModal from './AskQuestionModal';
+import { AuthorizationState } from '../../models/state/AppState';
+import ConsultModal from './ConsultModal';
 import './UserQuestionModal.css';
 
 interface Props {
+    auth?: AuthorizationState;
     dispatch: any;
+    help: HelpState;
     queries: SavedQueryMap;
-    state: UserInquiryState;
 }
 
 export default class UserQuestionModal extends React.PureComponent<Props> {
@@ -23,12 +26,22 @@ export default class UserQuestionModal extends React.PureComponent<Props> {
 
     public render() {
         const c = this.className;
-        const { dispatch, queries, state } = this.props;
-        const { show } = this.props.state;
+        const { dispatch, queries, auth, help } = this.props;
+        if (!auth || !auth.config || !auth.config.client.help) { return null; }
+
+        const { show } = help;
 
         return (
             <Modal isOpen={show} className={`${c} leaf-modal`} keyboard={true} size={'lg'}>
-                <AskQuestion dispatch={dispatch} queries={queries} state={state} />
+                {/* Ask Question */}
+                {help.method === HelpMethod.AskQuestion &&
+                <AskQuestionModal dispatch={dispatch} queries={queries} help={help} />
+                }
+
+                {/* Request Consult */}
+                {help.method === HelpMethod.Consult &&
+                <ConsultModal dispatch={dispatch} queries={queries} help={help} consult={auth.config.client.help.consult} />
+                }
             </Modal>
         );
     }

@@ -34,20 +34,27 @@ export interface CohortCountBoxState {
     infoButtonVisible: boolean;
 }
 
-export interface UserInquiryState {
+export interface AskQuestionState {
     associatedQuery?: SavedQueryRef;
     email?: string;
-    show: boolean;
     type: UserInquiryType;
     text: string;
 }
 
-export interface UserInquiry {
-    associatedQuery?: SavedQueryRef;
-    email?: string;
+export interface UserConsultRequestState {
+    answers: string[];
+}
+
+export enum HelpMethod {
+    AskQuestion = 1,
+    Consult = 2
+}
+
+export interface HelpState {
+    askQuestion: AskQuestionState;
+    consult: UserConsultRequestState;
+    method: HelpMethod;
     show: boolean;
-    type?: UserInquiryType;
-    text?: string;
 }
 
 export interface InformationModalState {
@@ -84,6 +91,7 @@ export interface GeneralUiState {
     confirmationModal: ConfirmationModalState;
     currentRoute: Routes;
     currentMyLeafTab: MyLeafTabType,
+    help: HelpState;
     informationModal: InformationModalState;
     noclickModal: NoClickModalState;
     routes: RouteConfig[];
@@ -93,7 +101,6 @@ export interface GeneralUiState {
     showExportDataModal: boolean;
     showSaveQueryPane: boolean;
     sideNotification: SideNotificationState;
-    userQuestion: UserInquiryState;
 }
 
 export enum MyLeafTabType {

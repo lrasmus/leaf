@@ -19,7 +19,7 @@ import { requestRootConcepts, setExtensionRootConcepts } from './concepts';
 import { setExportOptions } from './dataExport';
 import { fetchAvailableDatasets } from '../services/cohortApi';
 import { errorResponder, setResponders } from './networkResponders';
-import { showConfirmationModal, setUserInquiryState } from '../actions/generalUi';
+import { showConfirmationModal, setHelpState } from '../actions/generalUi';
 import { getSavedQueries, getExtensionRootConcepts } from '../services/queryApi';
 import { addSavedQueries, setCurrentQuery } from './queries';
 import { ConfirmationModalState } from '../models/state/GeneralUiState';
@@ -59,11 +59,12 @@ export const attestAndLoadSession = (attestation: Attestation) => {
             /* 
              * Get session token.
              */
+            const state = getState();
             dispatch(setSessionLoadState('Submitting Attestation', 5));
             dispatch(submitAttestation(attestation));
-            const ctx = await getSessionTokenAndContext(getState(), attestation) as SessionContext;
+            const ctx = await getSessionTokenAndContext(state, attestation) as SessionContext;
             dispatch(setSessionContext(ctx));
-            dispatch(setUserInquiryState({ email: getState().auth.userContext!.name, show: false }))
+            dispatch(setHelpState({ ...state.generalUi.help, show: false, askQuestion: { ...state.generalUi.help.askQuestion, email: state.auth.userContext!.name } }))
 
             /* 
              * Get home node identity.

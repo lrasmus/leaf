@@ -278,6 +278,7 @@ namespace API.Options
                             opts.Help.Consult.WebHook.URI = config.GetValue<string>(Config.Client.Help.Consult.Webhook.URI);
                         }
                         opts.Help.Consult.FormContent.Title = config.GetValue<string>(Config.Client.Help.Consult.FormContent.Title);
+                        opts.Help.Consult.FormContent.Text = config.GetValue<string>(Config.Client.Help.Consult.FormContent.Text);
                         opts.Help.Consult.FormContent.Body = config.GetSection(Config.Client.Help.Consult.FormContent.Body)
                             .Get<ClientOptions.HelpOptions.ConsultOptions.FormContentOptions.RecordOptions[]>();
                     }

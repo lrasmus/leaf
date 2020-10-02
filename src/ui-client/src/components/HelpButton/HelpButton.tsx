@@ -6,14 +6,16 @@
  */ 
 
 import React from 'react';
-import { setUserInquiryState } from '../../actions/generalUi';
+import { setHelpState, toggleHelpModal } from '../../actions/generalUi';
 import { AuthorizationState } from '../../models/state/AppState';
 import { MdTagFaces } from 'react-icons/md';
+import { HelpMethod, HelpState } from '../../models/state/GeneralUiState';
 import './HelpButton.css';
 
 interface Props {
     auth?: AuthorizationState;
     dispatch: any;
+    help: HelpState;
 }
 
 export default class HelpButton extends React.PureComponent<Props> {
@@ -26,10 +28,10 @@ export default class HelpButton extends React.PureComponent<Props> {
         const { help } = auth.config.client;
 
         const opts = [];
-        if (help.askQuestion.enabled) opts.push(this.getFunctionalLink(help.askQuestion.linkText, this.handleContactAdminClick));
+        if (help.askQuestion.enabled) opts.push(this.getFunctionalLink(help.askQuestion.linkText, this.handleAskQuestionClick));
         if (help.directEmail.enabled) opts.push(this.getDirectEmail());
         if (help.website.enabled)     opts.push(this.getWebsite());
-        if (help.consult.enabled)     opts.push(this.getFunctionalLink(help.consult.linkText, this.handleContactAdminClick));
+        if (help.consult.enabled)     opts.push(this.getFunctionalLink(help.consult.linkText, this.handleRequestConsultClick));
 
         const toRender = [];
         for (let i = 0; i < opts.length; i++) {
@@ -80,8 +82,13 @@ export default class HelpButton extends React.PureComponent<Props> {
         );
     }
 
-    private handleContactAdminClick = () => {
-        const { dispatch } = this.props;
-        dispatch(setUserInquiryState({ show: true, text: '' }));
+    private handleAskQuestionClick = () => {
+        const { dispatch, help } = this.props;
+        dispatch(setHelpState({ ...help, show: true, method: HelpMethod.AskQuestion }));
+    }
+
+    private handleRequestConsultClick = () => {
+        const { dispatch, help } = this.props;
+        dispatch(setHelpState({ ...help, show: true, method: HelpMethod.Consult }));
     }
 }

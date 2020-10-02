@@ -57,7 +57,7 @@ interface PatientListOptions {
     enabled: boolean;
 }
 
-interface HelpOptions {
+export interface HelpOptions {
     enabled: boolean;
     askQuestion: AskQuestionOptions;
     directEmail: DirectEmailOptions;
@@ -80,7 +80,7 @@ interface WebsiteOptions extends HelpMethodOptions {
     uri: string;
 }
 
-interface ConsultOptions extends HelpMethodOptions {
+export interface ConsultOptions extends HelpMethodOptions {
     webHook: WebHookOptions;
     formContent: FormContentOptions;
 }
@@ -92,13 +92,21 @@ interface WebHookOptions {
 
 interface FormContentOptions {
     title: string;
+    text: string;
     body: FormContentRecord[];
 }
 
-interface FormContentRecord {
+export enum FormContentRecordType {
+    dropdown = 'DROPDOWN',
+    text = 'TEXT',
+    textarea = 'TEXTAREA'
+}
+
+export interface FormContentRecord {
     name: string;
     options?: string[];
-    type: 'TEXT' | 'DROPDOWN';
+    required?: boolean;
+    type: FormContentRecordType;
 }
 
 export interface IdTokenDTO {

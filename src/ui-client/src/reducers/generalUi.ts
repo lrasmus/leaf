@@ -24,7 +24,8 @@ import {
     NOCLICK_MODAL_SET_STATE,
     SIDE_NOTIFICATION_SET_STATE,
     SET_MYLEAF_TAB,
-    SET_USER_QUESTION_STATE
+    SET_HELP_STATE,
+    TOGGLE_HELP_MODAL
 } from '../actions/generalUi';
 import { SET_PANEL_FILTERS, TOGGLE_PANEL_FILTER } from '../actions/panelFilter';
 import { 
@@ -40,7 +41,7 @@ import {
     SELECT_CONCEPT_SPECIALIZATION,
     DESELECT_CONCEPT_SPECIALIZATION
  } from '../actions/panels';
-import { GeneralUiState, Routes, NotificationStates, MyLeafTabType, UserInquiryType } from '../models/state/GeneralUiState';
+import { GeneralUiState, Routes, NotificationStates, MyLeafTabType, UserInquiryType, HelpMethod } from '../models/state/GeneralUiState';
 import { OPEN_SAVED_QUERY } from '../actions/queries';
 import { IMPORT_TOGGLE_MRN_MODAL, IMPORT_TOGGLE_REDCAP_MODAL } from '../actions/dataImport';
 
@@ -59,6 +60,18 @@ export const defaultGeneralUiState = (): GeneralUiState => {
             noButtonText: "",
             show: false,
             yesButtonText: "",
+        },
+        help: {
+            askQuestion: {
+                email: '',
+                type: UserInquiryType.HelpMakingQuery,
+                text: ''
+            },
+            consult: {
+                answers: []
+            },
+            method: HelpMethod.AskQuestion,
+            show: false
         },
         informationModal: {
             body: "",
@@ -79,12 +92,6 @@ export const defaultGeneralUiState = (): GeneralUiState => {
         showSaveQueryPane: false,
         sideNotification: {
             state: NotificationStates.Hidden
-        },
-        userQuestion: {
-            email: '',
-            show: false,
-            type: UserInquiryType.HelpMakingQuery,
-            text: ''
         }
     };
 };
@@ -142,8 +149,10 @@ export const generalUi = (state: GeneralUiState = defaultGeneralUiState(), actio
             return Object.assign({}, state, { sideNotification: { ...state.sideNotification, ...action.sideNotification! } });
         case SET_BROWSER:
             return Object.assign({}, state, { browser: action.browser! });
-        case SET_USER_QUESTION_STATE:
-            return Object.assign({}, state, { userQuestion: { ...state.userQuestion, ...action.userInquiry } });
+        case SET_HELP_STATE:
+            return Object.assign({}, state, { help: { ...action.help } });
+        case TOGGLE_HELP_MODAL:
+            return Object.assign({}, state, { help: { ...state.help, show: !state.help.show } });
         
         case ADD_PANEL_ITEM:
         case REMOVE_PANEL_ITEM:

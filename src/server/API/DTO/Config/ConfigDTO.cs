@@ -100,6 +100,7 @@ namespace API.DTO.Config
                         FormContent = new ConsultOptionsDTO.FormContentOptionsDTO
                         {
                             Title = opts.Consult.FormContent.Title,
+                            Text = opts.Consult.FormContent.Text,
                             Body = opts.Consult.FormContent.Body.Select(r => ConsultOptionsDTO.FormContentOptionsDTO.RecordOptions.From(r))
                         }
                     }
@@ -133,6 +134,7 @@ namespace API.DTO.Config
                 public class FormContentOptionsDTO
                 {
                     public string Title { get; set; }
+                    public string Text { get; set; }
                     public IEnumerable<RecordOptions> Body = new List<RecordOptions>();
 
                     public class RecordOptions

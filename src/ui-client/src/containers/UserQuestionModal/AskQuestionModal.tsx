@@ -6,24 +6,23 @@
  */ 
 
 import React from 'react';
-import { UserInquiryState, UserInquiryType } from '../../models/state/GeneralUiState';
+import { HelpState, UserInquiryType } from '../../models/state/GeneralUiState';
 import { ModalHeader, ModalBody, ModalFooter, Button, Row, Col, FormGroup, Label, FormText, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { setUserInquiryState, sendInquiry } from '../../actions/generalUi';
+import { setHelpState, toggleHelpModal, sendInquiry } from '../../actions/generalUi';
 import { FaChevronDown } from 'react-icons/fa';
 import { SavedQueryMap, SavedQueryRef } from '../../models/Query';
-import './UserQuestionModal.css';
 
 interface Props {
     dispatch: any;
+    help: HelpState;
     queries: SavedQueryMap;
-    state: UserInquiryState;
 }
 
 interface State {
     dropdownOpen: boolean;
 }
 
-export default class UserQuestionModal extends React.PureComponent<Props,State> {
+export default class AskQuestionModal extends React.PureComponent<Props,State> {
     private className = 'user-question-modal';
 
     public constructor(props: Props) {
@@ -35,7 +34,7 @@ export default class UserQuestionModal extends React.PureComponent<Props,State> 
 
     public render() {
         const c = this.className;
-        const { associatedQuery, email, type, text } = this.props.state;
+        const { associatedQuery, email, type, text } = this.props.help.askQuestion;
         const { dropdownOpen } = this.state;
         const questionText = 
 `Examples:
@@ -202,7 +201,7 @@ export default class UserQuestionModal extends React.PureComponent<Props,State> 
     }
 
     private sendOkay = () => {
-        const { email, text } = this.props.state;
+        const { email, text } = this.props.help.askQuestion;
         if (text.length && email && email.split('@').length === 2) {
             return true;
         }
@@ -210,8 +209,8 @@ export default class UserQuestionModal extends React.PureComponent<Props,State> 
     }
 
     private handleCloseClick = () => {
-        const { dispatch, state } = this.props;
-        dispatch(setUserInquiryState({ ...state, show: false }));
+        const { dispatch } = this.props;
+        dispatch(toggleHelpModal());
     }
 
     private handleSendClick = () => {
@@ -224,26 +223,26 @@ export default class UserQuestionModal extends React.PureComponent<Props,State> 
     }
 
     private handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { dispatch, state } = this.props;
-        const newState: UserInquiryState = { ...state, email: e.currentTarget.value };
-        dispatch(setUserInquiryState(newState));
+        const { dispatch, help } = this.props;
+        const newState: HelpState = { ...help, askQuestion: { ...help.askQuestion, email: e.currentTarget.value } };
+        dispatch(setHelpState(newState));
     }
 
     private handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { dispatch, state } = this.props;
-        const newState: UserInquiryState = { ...state, text: e.currentTarget.value };
-        dispatch(setUserInquiryState(newState));
+        const { dispatch, help } = this.props;
+        const newState: HelpState = { ...help, askQuestion: { ...help.askQuestion, text: e.currentTarget.value } };
+        dispatch(setHelpState(newState));
     }
 
     private handleAssociatedQueryChange = (associatedQuery?: SavedQueryRef) => {
-        const { dispatch, state } = this.props;
-        const newState: UserInquiryState = { ...state, associatedQuery };
-        dispatch(setUserInquiryState(newState));
+        const { dispatch, help } = this.props;
+        const newState: HelpState = { ...help, askQuestion: { ...help.askQuestion, associatedQuery } };
+        dispatch(setHelpState(newState));
     }
 
     private handleTypeChange = (type: UserInquiryType) => {
-        const { dispatch, state } = this.props;
-        const newState: UserInquiryState = { ...state, type };
-        dispatch(setUserInquiryState(newState));
+        const { dispatch, help } = this.props;
+        const newState: HelpState = { ...help, askQuestion: { ...help.askQuestion, type } };
+        dispatch(setHelpState(newState));
     }
 }

@@ -8,7 +8,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Navbar, Nav } from 'reactstrap';
-import { setCohortCountBoxState, toggleSaveQueryPane, setRoute, showConfirmationModal, toggleMyLeafModal, showInfoModal, setMyLeafTab, setUserInquiryState } from '../../actions/generalUi';
+import { setCohortCountBoxState, toggleSaveQueryPane, setRoute, showConfirmationModal, toggleMyLeafModal, showInfoModal, setMyLeafTab, setHelpState, toggleHelpModal } from '../../actions/generalUi';
 import { resetPanels } from '../../actions/panels';
 import { AppState, AuthorizationState } from '../../models/state/AppState';
 import { UserContext } from '../../models/Auth';
@@ -175,7 +175,7 @@ class Header extends React.PureComponent<Props> {
 
     private handleGetHelpClick = () => {
         const { dispatch } = this.props;
-        dispatch(setUserInquiryState({ show: true }));
+        dispatch(toggleHelpModal());
     }
 }
 

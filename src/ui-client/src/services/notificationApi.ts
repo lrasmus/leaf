@@ -5,17 +5,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */ 
 import { HttpFactory } from './HttpFactory';
-import { UserInquiryState } from '../models/state/GeneralUiState';
+import { HelpState } from '../models/state/GeneralUiState';
 import { AppState } from '../models/state/AppState';
 
-export const sendUserInquiry = async (state: AppState, inquiry: UserInquiryState): Promise<boolean> => {
+export const sendUserInquiry = async (state: AppState, inquiry: HelpState): Promise<boolean> => {
     const { token } = state.session.context!;
     const http = HttpFactory.authenticated(token);
     const request = await http.post('/api/notification/inquiry', { 
-        associatedQueryId: inquiry.associatedQuery ? inquiry.associatedQuery.universalId : null,
-        emailAddress: inquiry.email,
-        type: inquiry.type,
-        text: inquiry.text
+        associatedQueryId: inquiry.askQuestion.associatedQuery ? inquiry.askQuestion.associatedQuery.universalId : null,
+        emailAddress: inquiry.askQuestion.email,
+        type: inquiry.askQuestion.type,
+        text: inquiry.askQuestion.text
     });
     return request.data as boolean;
 };

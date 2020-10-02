@@ -13,8 +13,8 @@ import {
     SideNotificationState, 
     MyLeafTabType, 
     NotificationStates, 
-    UserInquiry, 
-    UserInquiryType
+    HelpState, 
+    UserInquiryType, HelpMethod
 } from '../models/state/GeneralUiState';
 import { Browser } from '../models/state/GeneralUiState';
 import { RouteConfig } from '../config/routes';
@@ -45,7 +45,8 @@ export const CONFIRM_MODAL_SHOW = 'CONFIRM_MODAL_SHOW';
 export const CONFIRM_MODAL_HIDE = 'CONFIRM_MODAL_HIDE';
 export const NOCLICK_MODAL_SET_STATE = 'NOCLICK_MODAL_SET_STATE';
 export const SIDE_NOTIFICATION_SET_STATE = 'SIDE_NOTIFICATION_SET_STATE';
-export const SET_USER_QUESTION_STATE = 'SET_USER_QUESTION_STATE';
+export const SET_HELP_STATE = 'SET_HELP_STATE';
+export const TOGGLE_HELP_MODAL = 'TOGGLE_HELP_MODAL';
 
 export interface GeneralUiAction {
     browser?: Browser;
@@ -53,6 +54,7 @@ export interface GeneralUiAction {
     cohortCountBoxMinimized?: boolean;
     cohortInfoButtonVisible?: boolean;
     confirmModal?: ConfirmationModalState;
+    help?: HelpState;
     infoModal?: InformationModalState;
     noclickModal?: NoClickModalState;
     searchTerm?: string;
@@ -62,7 +64,6 @@ export interface GeneralUiAction {
     sideNotification?: SideNotificationState;
     tab?: MyLeafTabType;
     type: string;
-    userInquiry?: UserInquiry;
 }
 
 // Asynchronous
@@ -131,9 +132,9 @@ export const sendInquiry = () => {
 
         try {
             dispatch(setNoClickModalState({ message: "Sending", state: NotificationStates.Working }));
-            await sendUserInquiry(state, state.generalUi.userQuestion);
+            await sendUserInquiry(state, state.generalUi.help);
             dispatch(setNoClickModalState({ message: "Question Sent", state: NotificationStates.Complete }));
-            dispatch(setUserInquiryState({ text: '', show: false, associatedQuery: undefined, type: UserInquiryType.HelpMakingQuery }));
+            dispatch(setHelpState({ ...state.generalUi.help, show: false, askQuestion: { text: '', associatedQuery: undefined, type: UserInquiryType.HelpMakingQuery } }));
         } catch (err) {
             console.log(err);
             const info: InformationModalState = {
@@ -171,37 +172,43 @@ export const setCohortCountBoxState = (cohortCountBoxVisible: boolean, cohortCou
     };
 };
 
-export const setUserInquiryState = (userInquiry: UserInquiry): GeneralUiAction => {
+export const setHelpState = (help: HelpState): GeneralUiAction => {
     return {
-        userInquiry,
-        type: SET_USER_QUESTION_STATE
-    }
+        help,
+        type: SET_HELP_STATE
+    };
+};
+
+export const toggleHelpModal = (): GeneralUiAction => {
+    return {
+        type: TOGGLE_HELP_MODAL
+    };
 };
 
 export const showInfoModal = (infoModal: InformationModalState): GeneralUiAction => {
     return {
         infoModal,
         type: INFO_MODAL_SHOW
-    }
+    };
 };
 
 export const hideInfoModal = () => {
     return {
         type: INFO_MODAL_HIDE
-    }
+    };
 };
 
 export const showConfirmationModal = (confirmModal: ConfirmationModalState): GeneralUiAction => {
     return {
         confirmModal,
         type: CONFIRM_MODAL_SHOW
-    }
+    };
 };
 
 export const hideConfirmModal = () => {
     return {
         type: CONFIRM_MODAL_HIDE
-    }
+    };
 };
 
 export const setRoute = (route: Routes): GeneralUiAction => {

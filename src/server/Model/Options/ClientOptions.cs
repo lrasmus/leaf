@@ -69,11 +69,13 @@ namespace Model.Options
                 public class FormContentOptions
                 {
                     public string Title { get; set; }
+                    public string Text { get; set; }
                     public ICollection<RecordOptions> Body = new List<RecordOptions>();
 
                     public class RecordOptions
                     {
                         public string Name { get; set; }
+                        public bool Required { get; set; }
                         public string Type { get; set; }
                         public string[] Options { get; set; }
                     }

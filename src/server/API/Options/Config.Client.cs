@@ -71,12 +71,14 @@ namespace API.Options
                     {
                         public const string Section = @"Client:Help:Consult:FormContent";
                         public const string Title = @"Client:Help:Consult:FormContent:Title";
+                        public const string Text = @"Client:Help:Consult:FormContent:Text";
                         public const string Body = @"Client:Help:Consult:FormContent:Body";
 
                         public static class Record
                         {
                             public const string Name = @"Name";
                             public const string Type = @"Type";
+                            public const string Required = @"Required";
                             public const string Options = @"Options";
                         }
                     }
