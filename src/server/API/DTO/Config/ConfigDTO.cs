@@ -91,6 +91,7 @@ namespace API.DTO.Config
                     Consult = new ConsultOptionsDTO
                     {
                         Enabled = opts.Consult.Enabled,
+                        LinkText = opts.Consult.LinkText,
                         WebHook = new ConsultOptionsDTO.WebHookOptionsDTO
                         {
                             Enabled = opts.Consult.WebHook.Enabled,

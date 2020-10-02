@@ -59,14 +59,28 @@ interface PatientListOptions {
 
 interface HelpOptions {
     enabled: boolean;
-    autoSend: boolean;
-    email?: string;
-    uri?: string;
+    askQuestion: AskQuestionOptions;
+    directEmail: DirectEmailOptions;
+    website: WebsiteOptions;
     consult: ConsultOptions;
 }
 
-interface ConsultOptions {
+interface HelpMethodOptions {
     enabled: boolean;
+    linkText: string;
+}
+
+interface AskQuestionOptions extends HelpMethodOptions { }
+
+interface DirectEmailOptions extends HelpMethodOptions {
+    address: string;
+}
+
+interface WebsiteOptions extends HelpMethodOptions {
+    uri: string;
+}
+
+interface ConsultOptions extends HelpMethodOptions {
     webHook: WebHookOptions;
     formContent: FormContentOptions;
 }

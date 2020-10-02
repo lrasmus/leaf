@@ -25,6 +25,20 @@ export default class HelpButton extends React.PureComponent<Props> {
         if (!auth || !auth.config || !auth.config.client.help.enabled) { return null; }
         const { help } = auth.config.client;
 
+        const opts = [];
+        if (help.askQuestion.enabled) opts.push(this.getFunctionalLink(help.askQuestion.linkText, this.handleContactAdminClick));
+        if (help.directEmail.enabled) opts.push(this.getDirectEmail());
+        if (help.website.enabled)     opts.push(this.getWebsite());
+        if (help.consult.enabled)     opts.push(this.getFunctionalLink(help.consult.linkText, this.handleContactAdminClick));
+
+        const toRender = [];
+        for (let i = 0; i < opts.length; i++) {
+            toRender.push(<span className={`${c}-option`} key={i}>{opts[i]}</span>);
+            if (i < opts.length-1) {
+                toRender.push(<span className={`${c}-or`} key={i}>or</span>);
+            }
+        }
+
         return (
             <div className={`${c}-container`}>
                 <div className={`${c}-icon-container`}>
@@ -33,29 +47,37 @@ export default class HelpButton extends React.PureComponent<Props> {
                 <div className={`${c}-needhelp`}>Need Help?</div>
                 <div className={`${c}-outer`}>
                     <div className={`${c}-inner`}>
-                        {!!help.email &&
-                            <div className={`${c}-contact`}>
-                                <a 
-                                    href={!help.autoSend ? `mailto:${help.email}` : undefined}
-                                    onClick={help.autoSend ? this.handleContactAdminClick : undefined}
-                                    >
-                                    Contact a Leaf administrator
-                                </a>
-                                {!!help.uri && 
-                                [
-                                    <span key={1}> or </span>,
-                                    <a href={help.uri} target="_" key={2}>Learn more here</a>
-                                ]
-                                }
-                            </div>
-                        }
-                        {!help.email && !!help.uri &&
-                            <a href={help.uri} target="_">Learn more here</a>
-                        }
+                        {toRender}
                     </div>
                 </div>
             </div>
         )
+    }
+
+    private getFunctionalLink = (text: string, onClick: any) => {
+        return (
+            <a onClick={onClick}>
+                {text}
+            </a>
+        );
+    }
+
+    private getDirectEmail = () => {
+        const { directEmail } = this.props.auth!.config!.client.help!;
+        return (
+            <a href={`mailto:${directEmail.address}`}>
+                {directEmail.linkText}
+            </a>
+        );
+    }
+
+    private getWebsite = () => {
+        const { website } = this.props.auth!.config!.client.help!;
+        return (
+            <a href={website.uri} target="_">
+                {website.linkText}
+            </a>
+        );
     }
 
     private handleContactAdminClick = () => {

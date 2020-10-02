@@ -271,6 +271,7 @@ namespace API.Options
                     if (opts.Help.Consult.Enabled)
                     {
                         opts.Help.Consult.Email.Enabled = config.GetValue<bool>(Config.Client.Help.Consult.Email.Enabled);
+                        opts.Help.Consult.LinkText = config.GetValue<string>(Config.Client.Help.Consult.LinkText);
                         opts.Help.Consult.WebHook.Enabled = config.GetValue<bool>(Config.Client.Help.Consult.Webhook.Enabled);
                         if (opts.Help.Consult.WebHook.Enabled)
                         {

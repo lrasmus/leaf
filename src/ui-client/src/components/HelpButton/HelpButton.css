@@ -76,10 +76,14 @@
     display: inline-block;
 }
 
-.help-contact a {
+.help-option a {
     color: #0056b3 !important;
 }
 
-.help-contact a:hover {
+.help-option a:hover {
     text-decoration: underline !important;
+}
+
+.help-or {
+    margin: 0 6px;
 }

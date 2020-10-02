@@ -54,6 +54,7 @@ namespace API.Options
                 {
                     public const string Section = @"Client:Help:Consult";
                     public const string Enabled = @"Client:Help:Consult:Enabled";
+                    public const string LinkText = @"Client:Help:Consult:LinkText";
 
                     public static class Webhook
                     {

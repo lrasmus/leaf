@@ -109,7 +109,7 @@ export default class UserButton extends React.PureComponent<Props> {
                         </div>
                         }
 
-                        {auth && auth.config && auth.config.client.help.autoSend &&
+                        {auth && auth.config && auth.config.client.help.enabled &&
                         [
                             <div key={1} className={`${c}-option-divider`} />,
 
