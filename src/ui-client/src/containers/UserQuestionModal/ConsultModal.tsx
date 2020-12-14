@@ -8,7 +8,7 @@
 import React from 'react';
 import { HelpState } from '../../models/state/GeneralUiState';
 import { ModalHeader, ModalBody, ModalFooter, Button, Row, Col, FormGroup, Label, FormText, Input, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Form } from 'reactstrap';
-import { SavedQueryMap, SavedQueryRef } from '../../models/Query';
+import { SavedQueryMap } from '../../models/Query';
 import { ConsultOptions, FormContentRecord, FormContentRecordType } from '../../models/Auth';
 import { setHelpState, toggleHelpModal } from '../../actions/generalUi';
 
