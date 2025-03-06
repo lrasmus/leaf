@@ -133,6 +133,7 @@ var getEmptyConcept = function () {
         isPatientCountAutoCalculated: false,
         isParent: false,
         isSpecializable: false,
+        isQueryable: true,
         rootId: '',
         uiDisplayName: '',
         uiDisplayText: '',
@@ -186,6 +187,7 @@ var getRootConcept = function (children, directChildrenIds, rootId) {
     concept.isRoot = true;
     concept.uiDisplayName = 'My Saved Cohorts';
     concept.childrenOnDrop = children;
+    concept.isQueryable = false;
     return concept;
 };
 var search = function (payload) {

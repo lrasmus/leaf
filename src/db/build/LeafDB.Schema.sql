@@ -88,6 +88,7 @@ CREATE TYPE [app].[HydratedConceptTable] AS TABLE(
 	[UiDropdownElements] [nvarchar](max) NULL,
 	[UiDropdownDefaultText] [nvarchar](400) NULL,
 	[UiNumericDefaultText] [nvarchar](50) NULL,
+    [IsQueryable] [bit] NULL
 	PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -658,6 +659,7 @@ CREATE TABLE [app].[Concept](
 	[AddDateTime] [datetime] NULL,
 	[PatientCountLastUpdateDateTime] [datetime] NULL,
 	[ContentLastUpdateDateTime] [datetime] NULL,
+    [IsQueryable] [bit] NULL
  CONSTRAINT [PK_Concept_1] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -1819,7 +1821,10 @@ CREATE PROCEDURE [adm].[sp_CreateConcept]
 	@uiNumericDefaultText nvarchar(50),
     @constraints auth.ResourceConstraintTable READONLY,
     @specializationGroups rela.ConceptSpecializationGroupTable READONLY,
-    @user auth.[User]
+    @user auth.[User],
+    -- By default concepts are queryable.  This provides consistency with
+    -- how Leaf has worked since its creation.
+    @isQueryable bit = 1
 AS
 BEGIN
     SET NOCOUNT ON
@@ -1865,7 +1870,8 @@ BEGIN
             UiDisplayPatientCount,
             UiNumericDefaultText,
             ContentLastUpdateDateTime,
-            PatientCountLastUpdateDateTime
+            PatientCountLastUpdateDateTime,
+            IsQueryable
         )
         OUTPUT inserted.Id INTO @ids
         SELECT
@@ -1890,7 +1896,8 @@ BEGIN
             UiDisplayPatientCount = @uiDisplayPatientCount,
             UiNumericDefaultText = @uiNumericDefaultText,
             ContentLastUpdateDateTime = GETDATE(),
-            PatientCountLastUpdateDateTime = GETDATE();
+            PatientCountLastUpdateDateTime = GETDATE(),
+            IsQueryable = COALESCE(@isQueryable, 1);
 
         DECLARE @id UNIQUEIDENTIFIER;
         SELECT TOP 1 @id = Id FROM @ids;
@@ -3122,7 +3129,8 @@ BEGIN
         UiDisplayTooltip,
         UiDisplayPatientCount,
         UiDisplayPatientCountByYear,
-        UiNumericDefaultText
+        UiNumericDefaultText,
+        IsQueryable
     FROM app.Concept
     WHERE Id = @id;
 
@@ -3553,7 +3561,10 @@ CREATE PROCEDURE [adm].[sp_UpdateConcept]
 	@uiNumericDefaultText nvarchar(50),
     @constraints auth.ResourceConstraintTable READONLY,
     @specializationGroups rela.ConceptSpecializationGroupTable READONLY,
-    @user auth.[User]
+    @user auth.[User],
+    -- By default concepts are queryable.  This provides consistency with
+    -- how Leaf has worked since its creation.
+    @isQueryable bit = 1
 AS
 BEGIN
     SET NOCOUNT ON
@@ -3606,7 +3617,8 @@ BEGIN
             UiDisplayPatientCount = @uiDisplayPatientCount,
             UiNumericDefaultText = @uiNumericDefaultText,
             ContentLastUpdateDateTime = GETDATE(),
-            PatientCountLastUpdateDateTime = CASE WHEN UiDisplayPatientCount = @uiDisplayPatientCount THEN PatientCountLastUpdateDateTime ELSE GETDATE() END
+            PatientCountLastUpdateDateTime = CASE WHEN UiDisplayPatientCount = @uiDisplayPatientCount THEN PatientCountLastUpdateDateTime ELSE GETDATE() END,
+            IsQueryable = @isQueryable
         WHERE Id = @id;
 
 		IF (@rootId != @oldRootId)
@@ -7883,6 +7895,7 @@ GO
 -- Author:      Cliff Spital, modified by Nic Dobbins
 -- Create date: 2018/8/2
 -- Modify date: 2019/1/4 - Added Concept Specializations
+--              2024/10/4 - Added IsQueryable
 -- Description: Hydrates a list of Concept Models by Ids
 -- =======================================
 CREATE PROCEDURE [app].[sp_HydrateConceptsByIds]
@@ -7934,7 +7947,8 @@ BEGIN
         c.UiDisplayPatientCountByYear,
         e.UiDisplayEventName,
         c.UiNumericDefaultText,
-        EventTypeId = e.Id
+        EventTypeId = e.Id,
+        c.IsQueryable
     FROM app.Concept c
 		 INNER JOIN app.ConceptSqlSet s
 			ON c.SqlSetId = s.Id

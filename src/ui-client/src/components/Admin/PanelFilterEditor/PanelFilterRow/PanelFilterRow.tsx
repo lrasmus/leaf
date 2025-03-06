@@ -47,7 +47,7 @@ const panelTarget = {
     },
     canDrop (props: Props, monitor: DropTargetMonitor) {
         const concept: Concept = monitor.getItem();
-        return !isNonstandard(concept.universalId);
+        return !isNonstandard(concept.universalId) && concept.isQueryable;
     }
 }
 

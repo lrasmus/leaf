@@ -41,7 +41,12 @@ const panelTarget = {
         handlers.handleAddPanelItem(concept, subPanel);
     },
     canDrop (props: Props, monitor: DropTargetMonitor) {
-        return props.queryState !== CohortStateType.REQUESTING;
+        const concept: Concept = monitor.getItem();
+        return (
+            props.queryState !== CohortStateType.REQUESTING &&
+            concept != null &&
+            concept.isQueryable
+        );
     }
 }
 

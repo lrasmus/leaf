@@ -44,7 +44,8 @@ const conceptNodeTarget = {
             con !== props.concept && 
             !con.isExtension && 
             !props.concept.isExtension &&
-            con.id !== props.concept.parentId
+            con.id !== props.concept.parentId &&
+            con.isQueryable
         );
     }
 }

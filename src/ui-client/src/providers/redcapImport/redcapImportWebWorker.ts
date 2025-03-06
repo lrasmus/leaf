@@ -444,6 +444,7 @@ export default class REDCapImportWebWorker {
                 urn,
                 isEncounterBased: false,
                 isParent: true,
+                isQueryable: true,
                 isNumeric: false,
                 isEventBased: false,
                 isPatientCountAutoCalculated: false,

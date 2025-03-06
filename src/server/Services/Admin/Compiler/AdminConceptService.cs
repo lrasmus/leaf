@@ -68,7 +68,8 @@ namespace Services.Admin.Compiler
                             uiNumericDefaultText = c.UiNumericDefaultText,
                             constraints = ResourceConstraintTable.From(c),
                             specializationGroups = ConceptSpecializationGroupTable.From(c),
-                            user = user.UUID
+                            user = user.UUID,
+                            isQueryable = c.IsQueryable
                         },
                         commandType: CommandType.StoredProcedure,
                         commandTimeout: opts.DefaultTimeout
@@ -145,7 +146,8 @@ namespace Services.Admin.Compiler
                             uiNumericDefaultText = c.UiNumericDefaultText,
                             constraints = ResourceConstraintTable.From(c),
                             specializationGroups = ConceptSpecializationGroupTable.From(c),
-                            user = user.UUID
+                            user = user.UUID,
+                            isQueryable = c.IsQueryable
                         },
                         commandType: CommandType.StoredProcedure,
                         commandTimeout: opts.DefaultTimeout
@@ -219,6 +221,7 @@ namespace Services.Admin.Compiler
         public int? UiDisplayPatientCount { get; set; }
         public string UiDisplayPatientCountByYear { get; set; }
         public string UiNumericDefaultText { get; set; }
+        public bool? IsQueryable { get; set;}
 
         public AdminConcept Concept(IEnumerable<SpecializationGroupRelationship> groups = null, IEnumerable<ConceptConstraintRecord> constraints = null)
         {
@@ -246,7 +249,8 @@ namespace Services.Admin.Compiler
                 UiDisplayPatientCountByYear = ConceptPatientYearCountSerde.Deserialize(UiDisplayPatientCountByYear),
                 UiNumericDefaultText = UiNumericDefaultText,
                 SpecializationGroups = groups ?? new List<SpecializationGroupRelationship>(),
-                Constraints = constraints?.Select(c => c.Constraint()) ?? new List<Model.Admin.Compiler.Constraint>()
+                Constraints = constraints?.Select(c => c.Constraint()) ?? new List<Model.Admin.Compiler.Constraint>(),
+                IsQueryable = IsQueryable
             };
         }
     }

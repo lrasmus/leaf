@@ -66,7 +66,8 @@ BEGIN
         c.UiDisplayPatientCountByYear,
         e.UiDisplayEventName,
         c.UiNumericDefaultText,
-        EventTypeId = e.Id
+        EventTypeId = e.Id,
+		c.IsQueryable
     FROM app.Concept c
 		 INNER JOIN app.ConceptSqlSet s
 			ON c.SqlSetId = s.Id

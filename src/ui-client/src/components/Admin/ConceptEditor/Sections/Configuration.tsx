@@ -31,6 +31,10 @@ export class Configuration extends React.PureComponent<Props> {
                         label='Is Numeric'
                     />
                     <Checkbox
+                        changeHandler={changeHandler} propName={'isQueryable'} value={adminConcept!.isQueryable}
+                        label='Is Queryable'
+                    />
+                    <Checkbox
                         changeHandler={changeHandler} propName={'isPatientCountAutoCalculated'} value={adminConcept!.isPatientCountAutoCalculated} 
                         label='Auto-Calculate Patient Count'
                     />

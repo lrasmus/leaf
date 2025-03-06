@@ -43,6 +43,7 @@ namespace Services.Search
         public int? EventTypeId { get; set; }
         public string UiDisplayPatientCountByYear { get; set; }
         public string UiNumericDefaultText { get; set; }
+        public bool IsQueryable { get; set; }
         
 
         public ConceptRecord() { }
@@ -76,6 +77,7 @@ namespace Services.Search
             UiDisplayPatientCountByYear = ConceptPatientYearCountSerde.Serialize(c.UiDisplayPatientCountByYear);
             UiNumericDefaultText = c.UiNumericDefaultText;
             EventTypeId = c.EventTypeId;
+            IsQueryable = c.IsQueryable;
         }
 
         public Concept Concept(ICollection<ConceptSpecializationGroup> groups)
@@ -115,7 +117,8 @@ namespace Services.Search
                 UiDisplayEventName = UiDisplayEventName,
                 UiDisplayPatientCountByYear = ConceptPatientYearCountSerde.Deserialize(UiDisplayPatientCountByYear),
                 UiNumericDefaultText = UiNumericDefaultText,
-                EventTypeId = EventTypeId
+                EventTypeId = EventTypeId,
+                IsQueryable = IsQueryable
             };
         }
     }

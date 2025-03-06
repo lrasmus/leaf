@@ -33,6 +33,7 @@ CREATE TYPE [app].[HydratedConceptTable] AS TABLE(
 	[UiDropdownElements] [nvarchar](max) NULL,
 	[UiDropdownDefaultText] [nvarchar](400) NULL,
 	[UiNumericDefaultText] [nvarchar](50) NULL,
+    [IsQueryable] [bit] NULL,
 	PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

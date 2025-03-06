@@ -44,7 +44,8 @@ BEGIN
         UiDisplayTooltip,
         UiDisplayPatientCount,
         UiDisplayPatientCountByYear,
-        UiNumericDefaultText
+        UiNumericDefaultText,
+        IsQueryable
     FROM app.Concept
     WHERE Id = @id;
 

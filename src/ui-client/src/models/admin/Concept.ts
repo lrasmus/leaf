@@ -76,6 +76,7 @@ export interface Concept {
     isNumeric: boolean;
     isParent: boolean;
     isRoot: boolean;
+    isQueryable: boolean;
     isPatientCountAutoCalculated: boolean;
     isSpecializable: boolean;
     constraints: Constraint[];

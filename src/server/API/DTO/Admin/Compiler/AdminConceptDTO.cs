@@ -40,6 +40,7 @@ namespace API.DTO.Admin.Compiler
         public IEnumerable<Constraint> Constraints { get; set; }
 
         public IEnumerable<SpecializationGroupRelationship> SpecializationGroups { get; set; }
+        public bool? IsQueryable { get; set; }
 
         public AdminConceptDTO()
         {
@@ -72,6 +73,7 @@ namespace API.DTO.Admin.Compiler
             UiNumericDefaultText = c.UiNumericDefaultText;
             Constraints = c.Constraints;
             SpecializationGroups = c.SpecializationGroups;
+            IsQueryable = c.IsQueryable;
         }
     }
 
@@ -106,6 +108,7 @@ namespace API.DTO.Admin.Compiler
                 UiNumericDefaultText = dto.UiNumericDefaultText,
                 Constraints = dto.Constraints,
                 SpecializationGroups = dto.SpecializationGroups,
+                IsQueryable = dto.IsQueryable
             };
         }
     }

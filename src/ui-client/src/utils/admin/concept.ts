@@ -20,6 +20,7 @@ interface BaseConceptProps {
     isNumeric: boolean,
     isParent: boolean,
     isRoot: boolean,
+    isQueryable: boolean,
     isPatientCountAutoCalculated: boolean,
     isSpecializable: boolean,
     uiDisplayName: string,
@@ -39,7 +40,7 @@ export const updateUserConceptFromAdminChange = (userConcept: any, propName: str
     const neverAdd = new Set(['specializationGroups']);
     const alwaysAdd = new Set([ 
         'uiDisplaySubtext', 'uiDisplayPatientCount', 'uiNumericDefaultText', 'uiDisplayTooltip', 
-        'uiDisplayName', 'uiDisplayText', 'isNumeric', 'isEncounterBased' 
+        'uiDisplayName', 'uiDisplayText', 'isNumeric', 'isEncounterBased', 'isQueryable'
     ]);
     const out = Object.assign({}, userConcept);
 
@@ -114,6 +115,7 @@ export const createEmptyConcept = (currentAdminConcept?: AdminConcept): EmptyCon
         isNumeric: false,
         isParent: false,
         isRoot: true,
+        isQueryable: true,
         isPatientCountAutoCalculated: true,
         isSpecializable: false,
         uiDisplayName: 'New Concept',

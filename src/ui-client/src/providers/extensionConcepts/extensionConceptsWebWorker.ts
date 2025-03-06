@@ -251,6 +251,7 @@ export default class ExtensionConceptsWebWorker {
                 isPatientCountAutoCalculated: false,
                 isParent: false,
                 isSpecializable: false,
+                isQueryable: true,
                 rootId: '',
                 uiDisplayName: '',
                 uiDisplayText: '',
@@ -307,6 +308,7 @@ export default class ExtensionConceptsWebWorker {
             concept.isRoot = true;
             concept.uiDisplayName = 'My Saved Cohorts';
             concept.childrenOnDrop = children;
+            concept.isQueryable = false;
             return concept;
         };
 

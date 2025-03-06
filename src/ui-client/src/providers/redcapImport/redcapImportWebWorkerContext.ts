@@ -300,6 +300,7 @@ var deriveConceptTree = function (config) {
         isEventBased: false,
         isPatientCountAutoCalculated: false,
         isSpecializable: false,
+        isQueryable: true,
         isExtension: true,
         isFetching: false,
         isOpen: false,

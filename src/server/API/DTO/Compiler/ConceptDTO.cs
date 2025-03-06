@@ -32,6 +32,7 @@ namespace API.DTO.Compiler
         public IEnumerable<ConceptSpecializationGroup> SpecializationGroups { get; set; }
         public IEnumerable<ConceptPatientYearCount> UiDisplayPatientCountByYear { get; set; }
         public string UiNumericDefaultText { get; set; }
+        public bool IsQueryable { get; set; }
         
 
         public ConceptDTO() { }
@@ -58,6 +59,7 @@ namespace API.DTO.Compiler
             UiDisplayEventName = c.UiDisplayEventName;
             UiNumericDefaultText = c.UiNumericDefaultText;
             EventTypeId = c.EventTypeId;
+            IsQueryable = c.IsQueryable;
         }
     }
 

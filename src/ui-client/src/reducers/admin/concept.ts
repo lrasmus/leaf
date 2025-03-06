@@ -147,7 +147,8 @@ export const generateDummyPanel = (): Panel => {
                     uiDisplayText: '',
                     childrenLoaded: false,
                     isFetching: false,
-                    isOpen: false
+                    isOpen: false,
+                    isQueryable: true
                 },
                 id: '',
                 index: 0,

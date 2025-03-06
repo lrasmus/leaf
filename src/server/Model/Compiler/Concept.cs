@@ -38,6 +38,7 @@ namespace Model.Compiler
         public ICollection<ConceptSpecializationGroup> SpecializationGroups { get; set; }
         public ICollection<ConceptPatientYearCount> UiDisplayPatientCountByYear { get; set; }
         public string UiNumericDefaultText { get; set; }
+        public bool IsQueryable { get; set; }
     }
 
     public class BaseConcept

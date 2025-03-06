@@ -74,7 +74,7 @@ const conceptNodeTarget = {
     },
     canDrop(props: Props, monitor: DropTargetMonitor) {
         const con = (monitor.getItem() as Concept);
-        return !con.isExtension && con.isEncounterBased;
+        return !con.isExtension && con.isEncounterBased && con.isQueryable;
     }
 }
 

@@ -39,7 +39,10 @@ CREATE PROCEDURE [adm].[sp_UpdateConcept]
 	@uiNumericDefaultText nvarchar(50),
     @constraints auth.ResourceConstraintTable READONLY,
     @specializationGroups rela.ConceptSpecializationGroupTable READONLY,
-    @user auth.[User]
+    @user auth.[User],
+    -- By default concepts are queryable.  This provides consistency with
+    -- how Leaf has worked since its creation.
+    @isQueryable bit = 1
 AS
 BEGIN
     SET NOCOUNT ON
@@ -92,7 +95,8 @@ BEGIN
             UiDisplayPatientCount = @uiDisplayPatientCount,
             UiNumericDefaultText = @uiNumericDefaultText,
             ContentLastUpdateDateTime = GETDATE(),
-            PatientCountLastUpdateDateTime = CASE WHEN UiDisplayPatientCount = @uiDisplayPatientCount THEN PatientCountLastUpdateDateTime ELSE GETDATE() END
+            PatientCountLastUpdateDateTime = CASE WHEN UiDisplayPatientCount = @uiDisplayPatientCount THEN PatientCountLastUpdateDateTime ELSE GETDATE() END,
+            IsQueryable = @isQueryable
         WHERE Id = @id;
 
 		IF (@rootId != @oldRootId)

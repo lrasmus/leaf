@@ -38,6 +38,7 @@ namespace Model.Admin.Compiler
         public IEnumerable<Constraint> Constraints { get; set; }
 
         public IEnumerable<SpecializationGroupRelationship> SpecializationGroups { get; set; }
+        public bool? IsQueryable { get; set; }
     }
 
     public class SpecializationGroupRelationship

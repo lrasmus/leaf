@@ -37,6 +37,7 @@ CREATE TABLE [app].[Concept](
 	[AddDateTime] [datetime] NULL,
 	[PatientCountLastUpdateDateTime] [datetime] NULL,
 	[ContentLastUpdateDateTime] [datetime] NULL,
+    [IsQueryable] [bit] NULL,
  CONSTRAINT [PK_Concept_1] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
