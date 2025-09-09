@@ -11,7 +11,7 @@ using Model.Compiler;
 using Model.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Data;
 using Dapper;
 using Services.Tables;
