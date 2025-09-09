@@ -5,7 +5,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 using System;
 using Model.Options;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace Services.Startup
 {

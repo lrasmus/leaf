@@ -10,7 +10,7 @@ using Model.Admin.Network;
 using System.Threading.Tasks;
 using Model.Network;
 using Dapper;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Services.Network;
 using System.Data;
 using Model.Authorization;
