@@ -223,6 +223,14 @@ const calculateExportCompletionTime = (percentComplete: number): number => {
     return secondsElapsed < 1 ? 60 : estimate;
 };
 
+// Need to add declaration here, per: https://stackoverflow.com/a/69491367/5670646
+// Updates in typescript lost the definition for msSaveBlob, and so we need to add it back in.
+declare global {
+    interface Navigator {
+        msSaveBlob?: (blob: any, defaultName?: string) => boolean
+    }
+}
+
 /*
  * Download a dataset (already transformed to a string) to a CSV file in browser.
  */

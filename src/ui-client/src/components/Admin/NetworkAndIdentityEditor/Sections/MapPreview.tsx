@@ -8,7 +8,7 @@
 import { LatLng } from 'leaflet';
 import { connect } from 'react-redux';
 import React from 'react';
-import { Map as LeafletMap, TileLayer } from 'react-leaflet';
+import { MapContainer as LeafletMap, TileLayer } from 'react-leaflet';
 import { NetworkIdentity } from '../../../../models/NetworkResponder';
 import { AppState } from '../../../../models/state/AppState';
 import EndpointMarker from '../../../Map/EndpointMarker';

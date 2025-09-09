@@ -5,9 +5,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */ 
 
-import { LatLngExpression } from 'leaflet';
 import React from 'react'
-import DivIcon from 'react-leaflet-div-icon'
+import { LatLngExpression, divIcon } from 'leaflet';
+import { Marker } from 'react-leaflet';
 import { CohortStateType } from '../../models/state/CohortState';
 
 interface Props
@@ -19,10 +19,13 @@ interface Props
 export default class EndpointMarker extends React.PureComponent<Props> {
     public render() {
         const classes = [ 'pulse-icon', (this.props.queryState === CohortStateType.LOADED ? 'pulse-icon-loaded' : '') ];
+        const icon = divIcon({
+            className: "pulse-icon-wrapper"
+        });
         return (
-            <DivIcon className="pulse-icon-wrapper" position={this.props.position}>
+            <Marker position={this.props.position} icon={icon}>
                 <div className={classes.join(' ')} />
-            </DivIcon>
+            </Marker>
         );
     }
 }
