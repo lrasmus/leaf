@@ -13,18 +13,19 @@ import ConceptTreeNode from './ConceptTreeNode';
 import './ConceptTree.css';
 
 interface Props {
+    allowEmptyConcepts: boolean;
+    allowEmptyToolTip: boolean;
     allowReparent: boolean;
     allowRerender: Set<string>;
     dispatch: Dispatch<any>
     roots: string[];
     tree: ConceptMap;
     selectedId: string;
-    allowEmptyConcepts: boolean;
 }
 
 export default class ConceptTree extends React.Component<Props> {
     public render() {
-        const { tree, allowReparent, allowRerender, dispatch, selectedId, allowEmptyConcepts } = this.props;
+        const { tree, allowEmptyConcepts, allowEmptyToolTip, allowReparent, allowRerender, dispatch, selectedId } = this.props;
         const roots = this.props.roots.map(id => tree.get(id)!).sort(this.sortRoots);
 
         return (
@@ -33,6 +34,8 @@ export default class ConceptTree extends React.Component<Props> {
                     if (!concept) { return null; }
                     return (
                         <ConceptTreeNode 
+                            allowEmptyConcepts={allowEmptyConcepts}
+                            allowEmptyToolTip={allowEmptyToolTip}
                             allowReparent={allowReparent}
                             allowRerender={allowRerender}
                             key={concept.id} 
@@ -41,7 +44,6 @@ export default class ConceptTree extends React.Component<Props> {
                             dispatch={dispatch}
                             parentShown={true}
                             selectedId={selectedId}
-                            allowEmptyConcepts={allowEmptyConcepts}
                         />
                 )})}
             </div>

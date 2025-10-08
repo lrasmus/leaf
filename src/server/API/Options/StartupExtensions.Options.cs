@@ -255,8 +255,9 @@ namespace API.Options
         {
             services.Configure<ClientOptions>(opts =>
             {
-                // Find Patients
-                opts.FindPatients.AllowEmptyConcepts = config.GetValue<bool>(Config.Client.FindPatients.AllowEmptyConcepts);
+                // ConceptTree
+                opts.ConceptTree.AllowEmptyConcepts = config.GetValue<bool>(Config.Client.ConceptTree.AllowEmptyConcepts);
+                opts.ConceptTree.AllowEmptyToolTip = config.GetValue<bool>(Config.Client.ConceptTree.AllowEmptyToolTip);
 
                 // Map
                 opts.Map.Enabled = config.GetValue<bool>(Config.Client.Map.Enabled);

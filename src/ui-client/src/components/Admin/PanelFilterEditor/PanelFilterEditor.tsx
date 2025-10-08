@@ -19,9 +19,10 @@ import { WhatsThis } from '../../Other/WhatsThis/WhatsThis';
 import './PanelFilterEditor.css';
 
 interface Props { 
+    allowEmptyConcepts: boolean;
+    allowEmptyToolTip: boolean;
     data: AdminState;
     dispatch: any;
-    allowEmptyConcepts: boolean;
 }
 
 interface State {
@@ -41,7 +42,7 @@ export class PanelFilterEditor extends React.PureComponent<Props,State> {
     }
 
     public render() {
-        const { data, dispatch, allowEmptyConcepts } = this.props;
+        const { data, dispatch, allowEmptyConcepts, allowEmptyToolTip } = this.props;
         const { selectedFilterId, forceValidation, showPreview } = this.state;
         const { panelFilters } = data;
         const { changed } = panelFilters;
@@ -61,7 +62,9 @@ export class PanelFilterEditor extends React.PureComponent<Props,State> {
                         {/* Concepts (can be dragged over) */}
                         <Col md={4} lg={4} xl={5} className={`${c}-column-left`}>
                             <div className={`${c}-column-left-overlay ${showPreview ? 'show' : ''}`}></div>
-                            <ConceptColumnContainer />
+                            <ConceptColumnContainer
+                                allowEmptyToolTip={allowEmptyToolTip}
+                            />
                         </Col>
 
                         {/* Panel Filter Editor */}

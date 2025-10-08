@@ -27,6 +27,8 @@ interface DndProps {
 }
 
 interface OwnProps {
+    allowEmptyConcepts: boolean;
+    allowEmptyToolTip: boolean;
     allowReparent: boolean;
     allowRerender: Set<string>;
     concept: Concept;
@@ -34,7 +36,6 @@ interface OwnProps {
     dispatch: any;
     parentShown: boolean;
     selectedId: string;
-    allowEmptyConcepts: boolean;
 }
 
 type Props = DndProps & OwnProps
@@ -70,7 +71,7 @@ class ConceptTreeNode extends React.Component<Props> {
     }
 
     public render() {
-        const { allowReparent, allowRerender, concept, concepts, dispatch, parentShown, selectedId, allowEmptyConcepts, connectDragSource } = this.props;
+        const { allowEmptyConcepts, allowEmptyToolTip, allowReparent, allowRerender, concept, concepts, dispatch, parentShown, selectedId, connectDragSource } = this.props;
         const c = 'concept-tree-node';
         const arrowClasses = [ `${c}-arrow` ];
         const mainClasses = [ c ];
@@ -120,7 +121,11 @@ class ConceptTreeNode extends React.Component<Props> {
                             />
 
                             {/* Learn More */}
-                            <LearnMoreButton concept={concept} />
+                            { (concept.uiDisplayTooltip || allowEmptyToolTip) &&
+                            <div className={`concept-tree-learn-more-info`}>
+                                <LearnMoreButton concept={concept} />
+                            </div>
+                            }
                         </div>
                         <div>
 
@@ -133,6 +138,8 @@ class ConceptTreeNode extends React.Component<Props> {
                                     Array.from(concept.childrenIds).map((childId) => (
                                         <ConceptTreeNodeContainer
                                             key={childId}
+                                            allowEmptyConcepts={allowEmptyConcepts}
+                                            allowEmptyToolTip={allowEmptyToolTip}
                                             allowReparent={allowReparent}
                                             allowRerender={allowRerender}
                                             concept={concepts.get(childId)!}
@@ -140,7 +147,6 @@ class ConceptTreeNode extends React.Component<Props> {
                                             dispatch={dispatch}
                                             parentShown={concept.isOpen}
                                             selectedId={selectedId}
-                                            allowEmptyConcepts={allowEmptyConcepts}
                                         />
                                     ))}
                                 </Collapse>

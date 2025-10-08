@@ -34,13 +34,18 @@ interface SubRouteConfig {
     display: string;
 }
 
-const findPatients = (allowEmptyConcepts: boolean): RouteConfig => {
+const findPatients = (allowEmptyConcepts: boolean, allowEmptyToolTip: boolean): RouteConfig => {
     return {   
         display: 'Find Patients', 
         icon: <FiSearch />,
         index: Routes.FindPatients,
         path: '/', 
-        render: () => <FindPatients allowEmptyConcepts={allowEmptyConcepts} />
+        render: () => (
+            <FindPatients
+                allowEmptyConcepts={allowEmptyConcepts}
+                allowEmptyToolTip={allowEmptyToolTip}
+            />
+        )
     };
 };
 const map = (tileUri: string): RouteConfig => {
@@ -65,13 +70,18 @@ const visualize = (): RouteConfig => {
         render: () => <Visualize />
     };
 };
-const timelines = (allowEmptyConcepts: boolean): RouteConfig => {
+const timelines = (allowEmptyConcepts: boolean, allowEmptyToolTip: boolean): RouteConfig => {
     return {
         display: 'Timelines',
         icon: <FiSliders />,
         index: Routes.Timelines,
         path: '/timelines',
-        render: () => <Timelines allowEmptyConcepts={allowEmptyConcepts} />
+        render: () => (
+            <Timelines
+                allowEmptyConcepts={allowEmptyConcepts}
+                allowEmptyToolTip={allowEmptyToolTip}
+            />
+        )
     };
 };
 const patientList = (allowEmptyConcepts: boolean): RouteConfig => { 
@@ -88,7 +98,7 @@ const patientList = (allowEmptyConcepts: boolean): RouteConfig => {
  * Lazy-load admin panel, as most users will never see it
  */
 const AdminPanel = React.lazy(() => import('../containers/Admin/AdminPanel'));
-const admin = (allowEmptyConcepts: boolean): RouteConfig => {
+const admin = (allowEmptyConcepts: boolean, allowEmptyToolTip: boolean): RouteConfig => {
     return {
         display: 'Admin',
         icon: <MdSecurity />,
@@ -96,7 +106,10 @@ const admin = (allowEmptyConcepts: boolean): RouteConfig => {
         path: '/admin',
         render: () => (
             <Suspense fallback={null}>
-                <AdminPanel allowEmptyConcepts={allowEmptyConcepts} />
+                <AdminPanel
+                    allowEmptyConcepts={allowEmptyConcepts}
+                    allowEmptyToolTip={allowEmptyToolTip}
+                />
             </Suspense>
         ),
         subRoutes: [{
@@ -123,14 +136,15 @@ const admin = (allowEmptyConcepts: boolean): RouteConfig => {
 
 export const getRoutes = (config: AppConfig, userContext: UserContext): RouteConfig[] => {
     const client = config!.client;
-    const allowEmptyConcepts = config!.client.findPatients.allowEmptyConcepts;
-    const routes = [ findPatients(allowEmptyConcepts) ];
+    const allowEmptyConcepts = config!.client.conceptTree.allowEmptyConcepts;
+    const allowEmptyToolTip = config!.client.conceptTree.allowEmptyToolTip;
+    const routes = [ findPatients(allowEmptyConcepts, allowEmptyToolTip) ];
 
     if (client.map.enabled)         { routes.push(map(client.map.tileURI)); }
     if (client.visualize.enabled)   { routes.push(visualize()); }
-    if (client.timelines.enabled)   { routes.push(timelines(allowEmptyConcepts)); }
+    if (client.timelines.enabled)   { routes.push(timelines(allowEmptyConcepts, allowEmptyToolTip )); }
     if (client.patientList.enabled) { routes.push(patientList(allowEmptyConcepts)); }
-    if (userContext && userContext.isAdmin) { routes.push(admin(allowEmptyConcepts)); }
+    if (userContext && userContext.isAdmin) { routes.push(admin(allowEmptyConcepts, allowEmptyToolTip)); }
 
     return routes;
 };
