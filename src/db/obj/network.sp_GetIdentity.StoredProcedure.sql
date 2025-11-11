@@ -29,7 +29,8 @@ BEGIN
         Latitude,
         Longitude,
         PrimaryColor,
-        SecondaryColor
+        SecondaryColor,
+        LastUpdated
     FROM network.[Identity];
 END
 

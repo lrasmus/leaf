@@ -19,6 +19,7 @@ namespace API.DTO.Network
         public double? Longitude { get; set; }
         public string PrimaryColor { get; set; }
         public string SecondaryColor { get; set; }
+        public string LastUpdated { get; set; }
         public RuntimeMode Runtime { get; set; }
 
         public NetworkIdentityResponseDTO()
@@ -36,6 +37,7 @@ namespace API.DTO.Network
             Longitude = n.Longitude;
             PrimaryColor = n.PrimaryColor;
             SecondaryColor = n.SecondaryColor;
+            LastUpdated = n.LastUpdated;
             Runtime = runtime;
         }
     }

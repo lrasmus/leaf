@@ -1,18 +1,57 @@
--- Copyright (c) 2022, UW Medicine Research IT, University of Washington
--- Developed by Nic Dobbins and Cliff Spital, CRIO Sean Mooney
--- This Source Code Form is subject to the terms of the Mozilla Public
--- License, v. 2.0. If a copy of the MPL was not distributed with this
--- file, You can obtain one at http://mozilla.org/MPL/2.0/.
-﻿USE [LeafDB]
+/**
+ * Update version
+ */
+UPDATE ref.[Version]
+SET [Version] = '3.11.4.1'
 GO
-/****** Object:  StoredProcedure [adm].[sp_UpsertIdentity]    Script Date: ******/
-SET ANSI_NULLS ON
+
+/**
+ * Add [LastUpdated] to network.[Identity]
+ */
+IF COLUMNPROPERTY(OBJECT_ID('network.[Identity]'), 'LastUpdated', 'ColumnId') IS NULL
+BEGIN
+    ALTER TABLE [network].[Identity]
+    ADD [LastUpdated] NVARCHAR(50) NULL;
+END
 GO
-SET QUOTED_IDENTIFIER ON
+
+
+IF OBJECT_ID('network.sp_GetIdentity', 'P') IS NOT NULL
+    DROP PROCEDURE [network].[sp_GetIdentity];
 GO
+
+
 -- =======================================
--- Author:      Cliff Spital
--- Create date: 2019/5/23
+-- Author:      Matthew Baumann
+-- Create date: 2025/11/5
+-- Description: Returns the network.Identity
+-- =======================================
+CREATE PROCEDURE [network].[sp_GetIdentity]
+AS
+BEGIN
+    SET NOCOUNT ON
+
+    SELECT
+        [Name],
+        Abbreviation,
+        [Description],
+        TotalPatients,
+        Latitude,
+        Longitude,
+        PrimaryColor,
+        SecondaryColor,
+        LastUpdated
+    FROM network.[Identity];
+END
+GO
+
+IF OBJECT_ID('adm.sp_UpsertIdentity', 'P') IS NOT NULL
+    DROP PROCEDURE [adm].[sp_UpsertIdentity];
+GO
+
+-- =======================================
+-- Author:      Matthew Baumann
+-- Create date: 2025/11/5
 -- Description: Inserts or updates network.Identity.
 -- =======================================
 CREATE PROCEDURE [adm].[sp_UpsertIdentity]
@@ -24,7 +63,7 @@ CREATE PROCEDURE [adm].[sp_UpsertIdentity]
     @lng DECIMAL(7,4),
     @primColor nvarchar(40),
     @secColor nvarchar(40),
-    @LastUpdated nvarchar(50),
+    @lastUpdated nvarchar(50),
     @user auth.[User]
 AS
 BEGIN

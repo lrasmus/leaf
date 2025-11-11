@@ -56,6 +56,11 @@ export default class NetworkHealthResponder extends React.PureComponent<Props> {
                         <div className={`${c}-title-patients`}>
                             {this.formatPatientCount(r.totalPatients)}
                         </div>
+                        { r.lastUpdated &&
+                        <div className={`${c}-last-updated`}>
+                            {'Last Database Update: ' + r.lastUpdated}
+                        </div>
+                        }
                     </div>
                     <div className={`${c}-enabled`}>
                         <div className={`${c}-enabled-text`}>

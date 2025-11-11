@@ -27,6 +27,7 @@ export interface NetworkIdentity extends NetworkIdentityResponseDTO {
     runtime: RuntimeMode;
     primaryColor: string;
     secondaryColor: string;
+    lastUpdated?: string;
 
     isGateway: boolean;
     enabled: boolean;

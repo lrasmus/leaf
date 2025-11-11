@@ -20,6 +20,7 @@ CREATE TABLE [network].[Identity](
 	[Longitude] [decimal](7, 4) NULL,
 	[PrimaryColor] [nvarchar](40) NULL,
 	[SecondaryColor] [nvarchar](40) NULL,
+	[LastUpdated] [nvarchar](50) NULL,
  CONSTRAINT [PK_NetworkIdentity] PRIMARY KEY CLUSTERED 
 (
 	[Lock] ASC

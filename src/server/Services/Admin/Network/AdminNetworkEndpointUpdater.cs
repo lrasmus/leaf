@@ -76,6 +76,7 @@ namespace Services.Admin.Network
                         lng = identity.Longitude,
                         primColor = identity.PrimaryColor,
                         secColor = identity.SecondaryColor,
+                        lastUpdated = identity.LastUpdated,
                         user = user.UUID
                     },
                     commandTimeout: opts.DefaultTimeout,
