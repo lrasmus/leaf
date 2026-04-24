@@ -11,10 +11,12 @@ namespace API.Options
     {
         public static class Client
         {
-            public static class FindPatients
+            public static class ConceptTree
             {
-                public const string Section = @"Client:FindPatients";
-                public const string AllowEmptyConcepts = @"Client:FindPatients:AllowEmptyConcepts";
+                public const string Section = @"Client:ConceptTree";
+                public const string AllowEmptyConcepts = @"Client:ConceptTree:AllowEmptyConcepts";
+                public const string AllowEmptyToolTip = @"Client:ConceptTree:AllowEmptyToolTip";
+
             }
             public static class Map
             {

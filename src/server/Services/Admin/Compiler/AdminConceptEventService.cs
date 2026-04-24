@@ -10,7 +10,7 @@ using Model.Admin;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Model.Options;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Data;
 using Dapper;
 using Model.Error;

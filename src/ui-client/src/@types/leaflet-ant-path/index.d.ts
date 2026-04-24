@@ -5,14 +5,4 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */ 
 
-import Axios, { AxiosInstance } from 'axios';
-
-export const HttpFactory = {
-    authenticated(token?: string): AxiosInstance {
-        return Axios.create({
-            headers: {
-                'authorization': `Bearer ${token}`
-            }
-        });
-    }
-};
+declare module "leaflet-ant-path";

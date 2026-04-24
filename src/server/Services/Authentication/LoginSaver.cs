@@ -9,7 +9,7 @@ using Model.Options;
 using Dapper;
 using System.Threading.Tasks;
 using System.Linq;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Data;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;

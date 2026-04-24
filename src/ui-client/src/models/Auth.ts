@@ -64,7 +64,7 @@ interface CohortConfigDTO {
 export interface AppConfig extends ConfigDTO { }
 
 export interface ClientOptions {
-    findPatients: FindPatientsOptions;
+    conceptTree: ConceptTreeOptions;
     map: MapOptions;
     visualize: VisualizeOptions;
     timelines: TimelinesOptions;
@@ -72,8 +72,9 @@ export interface ClientOptions {
     help: HelpOptions;
 }
 
-interface FindPatientsOptions {
+interface ConceptTreeOptions {
     allowEmptyConcepts: boolean;
+    allowEmptyToolTip: boolean;
 }
 
 interface MapOptions {

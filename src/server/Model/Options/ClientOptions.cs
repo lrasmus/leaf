@@ -9,16 +9,17 @@ namespace Model.Options
 {
     public class ClientOptions
     {
-        public FindPatientsOptions FindPatients = new FindPatientsOptions();
+        public ConceptTreeOptions ConceptTree = new ConceptTreeOptions();
         public MapOptions Map = new MapOptions();
         public VisualizeOptions Visualize = new VisualizeOptions();
         public TimelinesOptions Timelines = new TimelinesOptions();
         public PatientListOptions PatientList = new PatientListOptions();
         public HelpOptions Help = new HelpOptions();
 
-        public class FindPatientsOptions
+        public class ConceptTreeOptions
         {
             public bool AllowEmptyConcepts { get; set; }
+            public bool AllowEmptyToolTip { get; set; }
         }
 
         public class MapOptions

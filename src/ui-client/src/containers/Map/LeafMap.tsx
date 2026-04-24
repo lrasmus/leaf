@@ -7,8 +7,8 @@
 
 import { LatLng } from 'leaflet';
 import React from 'react';
-import { Map as LeafletMap, TileLayer } from 'react-leaflet';
-import AntPath from 'react-leaflet-ant-path';
+import { MapContainer as LeafletMap, TileLayer } from 'react-leaflet';
+import { AntPath, antPath } from 'leaflet-ant-path';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux'
 import { setViewport } from '../../actions/map';

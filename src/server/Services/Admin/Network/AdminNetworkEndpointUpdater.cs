@@ -10,7 +10,7 @@ using Model.Admin.Network;
 using System.Threading.Tasks;
 using Model.Network;
 using Dapper;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Services.Network;
 using System.Data;
 using Model.Authorization;
@@ -76,6 +76,7 @@ namespace Services.Admin.Network
                         lng = identity.Longitude,
                         primColor = identity.PrimaryColor,
                         secColor = identity.SecondaryColor,
+                        lastUpdated = identity.LastUpdated,
                         user = user.UUID
                     },
                     commandTimeout: opts.DefaultTimeout,

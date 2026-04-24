@@ -46,7 +46,7 @@ const panelTarget = {
         return (
             props.queryState !== CohortStateType.REQUESTING &&
             concept != null &&
-            (props.allowEmptyConcepts || concept.isQueryable)
+            (props.allowEmptyConcepts || concept.isQueryable || concept.isExtension)
         );
     }
 }

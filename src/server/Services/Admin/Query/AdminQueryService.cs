@@ -11,7 +11,7 @@ using Model.Options;
 using Model.Compiler;
 using Model.Admin.Query;
 using Microsoft.Extensions.Options;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Data;
 using Model.Tagging;

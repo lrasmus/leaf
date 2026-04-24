@@ -58,6 +58,12 @@ export class Identity extends React.PureComponent<Props> {
                             changeHandler={changeHandler} propName={'totalPatients'} value={identity.totalPatients}
                             label='Total Patients' subLabel='Approximate number of total patients' type='number'
                         />
+
+                        <Input
+                            changeHandler={changeHandler} propName={'lastUpdated'} value={identity.lastUpdated}
+                            label='Last Updated' subLabel='Last data update' type='text'
+                        />
+
                         <Input 
                             changeHandler={changeHandler} propName={'primaryColor'} value={identity.primaryColor} forceValidation={forceValidation}
                             label='Primary Color' subLabel={`Primary color shown next to name, such as '#bf5700' or 'rgb(75,46,131)'`} required={true}

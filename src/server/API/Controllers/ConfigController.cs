@@ -82,9 +82,10 @@ namespace API.Controllers
                 },
                 Client = new ClientOptionsDTO
                 {
-                    FindPatients = new ClientOptionsDTO.FindPatientsDTO
+                    ConceptTree = new ClientOptionsDTO.ConceptTreeOptionsDTO
                     {
-                        AllowEmptyConcepts = clientOptions.FindPatients.AllowEmptyConcepts
+                        AllowEmptyConcepts = clientOptions.ConceptTree.AllowEmptyConcepts,
+                        AllowEmptyToolTip = clientOptions.ConceptTree.AllowEmptyToolTip
                     },
                     Map = new ClientOptionsDTO.MapOptionsDTO
                     {

@@ -13,16 +13,20 @@ import './FindPatients.css';
 
 interface Props {
     allowEmptyConcepts: boolean;
+    allowEmptyToolTip: boolean;
 }
 
 export class FindPatients extends React.PureComponent<Props> {
     public render() {
-        const { allowEmptyConcepts } = this.props;
+        const { allowEmptyConcepts, allowEmptyToolTip } = this.props;
         return (
             <Container fluid={true}>
                 <Row className="find-patients-screen">
                     <Col md={4} lg={4} xl={5} className="find-patients-column-left">
-                        <ConceptColumnContainer allowEmptyConcepts={allowEmptyConcepts} />
+                        <ConceptColumnContainer
+                            allowEmptyConcepts={allowEmptyConcepts}
+                            allowEmptyToolTip={allowEmptyToolTip}
+                        />
                     </Col>
                     <Col md={8} lg={8} xl={7} className="find-patients-column-right scrollable-offset-by-header">
                         <PanelGroupColumn allowEmptyConcepts={allowEmptyConcepts} />

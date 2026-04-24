@@ -39,12 +39,14 @@
     color: rgb(240,240,240);
 }
 
+.header-networkhealth-responder-last-updated,
 .header-networkhealth-responder-title-patients {
     color: rgb(163, 162, 100);
     font-size: 0.8rem;
     margin-top: -2px;
 }
 
+.disabled .header-networkhealth-responder-last-updated,
 .disabled .header-networkhealth-responder-title-patients,
 .disabled .header-networkhealth-responder-text-description {
     color: rgb(100,100,100);

@@ -17,5 +17,6 @@ namespace Model.Network
         public double? Longitude { get; set; }
         public string PrimaryColor { get; set; }
         public string SecondaryColor { get; set; }
+        public string LastUpdated { get; set; }
     }
 }

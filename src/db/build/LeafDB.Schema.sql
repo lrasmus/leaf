@@ -4468,6 +4468,7 @@ CREATE PROCEDURE [adm].[sp_UpsertIdentity]
     @lng DECIMAL(7,4),
     @primColor nvarchar(40),
     @secColor nvarchar(40),
+    @lastUpdated nvarchar(50),
     @user auth.[User]
 AS
 BEGIN
@@ -4489,7 +4490,8 @@ BEGIN
             Latitude = @lat,
             Longitude = @lng,
             PrimaryColor = @primColor,
-            SecondaryColor = @secColor
+            SecondaryColor = @secColor,
+            LastUpdated = @lastUpdated
         OUTPUT
             inserted.Name,
             inserted.Abbreviation,
@@ -4498,13 +4500,14 @@ BEGIN
             inserted.Latitude,
             inserted.Longitude,
             inserted.PrimaryColor,
-            inserted.SecondaryColor;
+            inserted.SecondaryColor,
+            inserted.LastUpdated;
     END;
     ELSE
     BEGIN;
-        INSERT INTO network.[Identity] ([Name], Abbreviation, [Description], TotalPatients, Latitude, Longitude, PrimaryColor, SecondaryColor)
-        OUTPUT inserted.Name, inserted.Abbreviation, inserted.[Description], inserted.TotalPatients, inserted.Latitude, inserted.Longitude, inserted.PrimaryColor, inserted.SecondaryColor
-        VALUES (@name, @abbr, @desc, @totalPatients, @lat, @lng, @primColor, @secColor);
+        INSERT INTO network.[Identity] ([Name], Abbreviation, [Description], TotalPatients, Latitude, Longitude, PrimaryColor, SecondaryColor, LastUpdated)
+        OUTPUT inserted.Name, inserted.Abbreviation, inserted.[Description], inserted.TotalPatients, inserted.Latitude, inserted.Longitude, inserted.PrimaryColor, inserted.SecondaryColor, inserted.LastUpdated
+        VALUES (@name, @abbr, @desc, @totalPatients, @lat, @lng, @primColor, @secColor, @lastUpdated);
     END;
 
     COMMIT;
@@ -9067,7 +9070,8 @@ BEGIN
         Latitude,
         Longitude,
         PrimaryColor,
-        SecondaryColor
+        SecondaryColor,
+        LastUpdated
     FROM network.[Identity];
 END
 
